@@ -2,14 +2,73 @@
 """ENTER YOUR SOLUTION HERE!"""
 
 class Employee:
-    def __init__(self, name):
+    def __init__(self, name, contract, salaryCal , hours, isCommission , commissionType , commission , contractsNum ):
         self.name = name
+        self.contract = contract
+        self.salaryCal = salaryCal
+        self.hours = hours
+        self.isCommission = isCommission
+        self.commissionType = commissionType
+        self.commission = commission
+        self.contractsNum = contractsNum
+
+
 
     def get_pay(self):
-        pass
+        totalPay = 0
+
+        if self.contract == "monthly":
+            if self.isCommission == False:
+                totalPay = self.salaryCal
+
+            elif self.isCommission and self.commissionType == "bonus":
+                totalPay = self.salaryCal + self.commission
+
+            else:
+                totalPay = self.salaryCal +  (self.contractsNum * self.commission)
+
+        elif self.contract == "hourly":
+            if self.isCommission == False:
+                totalPay = self.salaryCal * self.hours
+
+            elif self.isCommission and self.commissionType == "bonus":
+                totalPay = (self.salaryCal * self.hours) + self.commission
+
+            else:
+                totalPay = (self.salaryCal * self.hours) +  (self.contractsNum * self.commission)
+
+        return totalPay
+
+
+
+
+
 
     def __str__(self):
-        return self.name
+        empString = ""
+
+        if self.contract == "monthly":
+            if self.isCommission == False:
+                empString += f'{self.name} works on a monthly salary of {self.salaryCal}.  Their total pay is {self.get_pay()}.'
+
+            elif self.isCommission and self.commissionType == "bonus":
+                empString += f'{self.name} works on a monthly salary of {self.salaryCal} and receives a bonus commission of {self.commission}.  Their total pay is {self.get_pay()}.'
+
+            else:
+                empString += f'{self.name} works on a monthly salary of {self.salaryCal} and receives a commission for {self.contractsNum} contract(s) at {self.commission}/contract.  Their total pay is {self.get_pay()}.'
+
+
+        elif self.contract == "hourly":
+            if self.isCommission == False:
+                empString += f'{self.name} works on a contract of {self.salaryCal} hours at {self.hours}/hour.  Their total pay is {self.get_pay()}.'
+
+            elif self.isCommission and self.commissionType == "bonus":
+                empString += f'{self.name} works on a contract of {self.salaryCal} hours at {self.hours}/hour and receives a bonus commission of {self.commission}.  Their total pay is {self.get_pay()}.'
+
+            else:
+               empString += f'{self.name} works on a contract of {self.salaryCal} hours at {self.hours}/hour and receives a commission for {self.contractsNum} contract(s) at {self.commission}/contract.  Their total pay is {self.get_pay()}.'
+
+        return empString
 
 
 # Billie works on a monthly salary of 4000.  Their total pay is 4000.
